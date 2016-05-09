@@ -3,7 +3,7 @@ CREATE TABLE `USER` (
   `USERNAME` varchar(45) NOT NULL,
   `EMAIL` varchar(45) NOT NULL,
   `PASSWORD` varchar(45) NOT NULL,
-  `BIRTHDAY` datetime NOT NULL,
+  `BIRTHDAY` date NOT NULL,
   `FIRSTNAME` varchar(45) NOT NULL,
   `LASTNAME` varchar(45) NOT NULL,
   `ZIP` int(11) DEFAULT NULL,
@@ -29,7 +29,7 @@ INSERT INTO `KaDoRi`.`USER`
 `ROLE`)
 VALUES
 (1, 'rip32700', 'rip@test.de', 'test123', 
- 1999-01-01, 'max', 'mustermann', 99999, 
+ '1999-01-01', 'max', 'mustermann', 99999, 
  'Musterstadt', 'Musterstrasse', 8, 1);
  
  INSERT INTO `KaDoRi`.`USER`
@@ -47,7 +47,7 @@ VALUES
 `ROLE`)
 VALUES
 (2, 'kaa3333', 'kaaa@test.de', '123test', 
- 1999-01-01, 'max', 'mustermann', 99999, 
+ '1999-01-01', 'max', 'mustermann', 99999, 
  'Musterstadt', 'Musterstrasse', 8, 0);
 
 commit;

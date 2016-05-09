@@ -1,18 +1,45 @@
 package com.hsp.kadori.ws.domain;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "USER")
 public class User {
 
+	@Id @GeneratedValue
+	@Column(name = "USER_ID")
 	private Long userId;
+	
+	@Column(name = "USERNAME")
 	private String username;
+	
+	@Column(name = "FIRSTNAME")
 	private String firstname;
+	
+	@Column(name = "LASTNAME")
 	private String lastname;
+	
+	@Column(name = "EMAIL")
 	private String email;
+	
+	@Column(name = "PASSWORD")
 	private String password;
+	
+	@Column(name = "BIRTHDAY")
 	private String birthday;
+	
+	@Column(name = "STREET")
 	private String street;
+	
+	@Column(name = "STREET_NR")
 	private int streetNumber;
+	
+	@Column(name = "CITY")
 	private String city;
+	
+	@Column(name = "ZIP")
 	private int zip;
+	
+	@Column(name = "ROLE")
 	private int role;
 	
 	public User() {
