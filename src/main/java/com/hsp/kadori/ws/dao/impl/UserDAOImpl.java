@@ -1,9 +1,13 @@
 package com.hsp.kadori.ws.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.HibernateException; 
-import org.hibernate.Session; 
+import javax.inject.Inject;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import com.hsp.kadori.ws.dao.UserDAO;
@@ -69,6 +73,14 @@ public class UserDAOImpl extends DAOImplBase implements UserDAO {
 	    }
 	      
 	    return user;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public User findByUserName(String username) {
+
+		//TODO: retrieve user
+		return null;
 	}
 
 }
