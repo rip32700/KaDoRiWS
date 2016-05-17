@@ -7,7 +7,7 @@ import com.hsp.kadori.ws.domain.User;
 public interface UserDAO {
 
 	User findUserById(final Long id);
-	User findByUserName(final String username);
+	User findUserByUsername(String username);
 	List<User> findAllUser();
 	User save(User user);
 }

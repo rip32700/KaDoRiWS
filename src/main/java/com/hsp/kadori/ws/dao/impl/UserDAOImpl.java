@@ -1,13 +1,10 @@
 package com.hsp.kadori.ws.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.Query;
+import org.hibernate.Session; 
 import org.hibernate.Transaction;
 
 import com.hsp.kadori.ws.dao.UserDAO;
@@ -26,6 +23,27 @@ public class UserDAOImpl extends DAOImplBase implements UserDAO {
 	    try{
 	       tx = session.beginTransaction();
 	       User user = (User)session.get(User.class, id);
+	       tx.commit();
+	       return user;
+	    }catch (HibernateException e) {
+	       if (tx!=null) tx.rollback();
+	       e.printStackTrace();
+	    }finally {
+	       session.close(); 
+	    }
+	    
+	    return null;
+	}
+	
+	@Override
+	public User findUserByUsername(String username) {
+	    Session session = factory.openSession();
+	    Transaction tx = null;
+	    try{
+	       tx = session.beginTransaction();
+	       Query q = session.createQuery("From User where username=:name");
+	       q.setParameter("name", username);
+	       User user = (User)q.uniqueResult();
 	       tx.commit();
 	       return user;
 	    }catch (HibernateException e) {
@@ -73,14 +91,6 @@ public class UserDAOImpl extends DAOImplBase implements UserDAO {
 	    }
 	      
 	    return user;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public User findByUserName(String username) {
-
-		//TODO: retrieve user
-		return null;
 	}
 
 }

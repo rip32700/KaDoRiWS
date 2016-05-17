@@ -28,6 +28,12 @@ public class UserController {
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/name/{username}", method=RequestMethod.GET)
+	public ResponseEntity<?> getUser(@PathVariable("username") String username) {
+		User user = repository.findUserByUsername(username);
+		return new ResponseEntity<>(user, HttpStatus.OK);
+	}
+	
 	@RequestMapping(value="/all", method=RequestMethod.GET)
 	public ResponseEntity<?> getAllUser() {
 		List<User> users = repository.findAllUser();
