@@ -23,7 +23,7 @@ public class WebServiceUserDetails implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		User user = userDao.findByUserName(username);
+		User user = userDao.findUserByUsername(username);
 		
 		if(user == null) {
 			throw new UsernameNotFoundException("User " + username + " could not be found.");
