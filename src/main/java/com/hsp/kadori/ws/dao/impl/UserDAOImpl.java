@@ -5,28 +5,14 @@ import java.util.List;
 import org.hibernate.HibernateException; 
 import org.hibernate.Session; 
 import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
 
 import com.hsp.kadori.ws.dao.UserDAO;
 import com.hsp.kadori.ws.domain.User;
 
-public class UserDAOImpl implements UserDAO {
-	private static SessionFactory factory;
-	private static ServiceRegistry serviceRegistry;
+public class UserDAOImpl extends DAOImplBase implements UserDAO {
 	
 	public UserDAOImpl() {
-		try{
-	         Configuration configuration = new Configuration();
-	         configuration.configure().addAnnotatedClass(User.class);
-	         serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
-	         factory = configuration.buildSessionFactory(serviceRegistry);
-	      }catch (Throwable ex) { 
-	         System.err.println("Failed to create sessionFactory object." + ex);
-	         throw new ExceptionInInitializerError(ex); 
-	      }
+		super(User.class);
 	}
 	
 	@Override
@@ -73,7 +59,7 @@ public class UserDAOImpl implements UserDAO {
 	    Transaction tx = null;
 	    try{
 	       tx = session.beginTransaction();
-	       session.saveOrUpdate(user);
+	       session.save(user);
 	       tx.commit();
 	    }catch (HibernateException e) {
 	       if (tx!=null) tx.rollback();
