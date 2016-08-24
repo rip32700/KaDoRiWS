@@ -18,6 +18,9 @@ public class Post {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationTime;
 	
+	@Column(name = "ISPUBLIC")
+	private boolean isPublic;
+	
     @ManyToOne
     @JoinColumn(name = "GROUP_ID")
 	private Group group;
@@ -28,21 +31,23 @@ public class Post {
 	
 	public Post() {}
 	
-	public Post (Long postId, String content, Date creationTime, User user) {
+	public Post (Long postId, String content, Date creationTime, boolean isPublic, User user) {
 		super();
 		this.postId = postId;
 		this.content = content;
 		this.creationTime = creationTime;
+		this.isPublic = isPublic;
 		this.user = user;
 	}
 	
-	public Post (Long postId, String content, Date creationTime, Group group, User user) {
+	public Post (Long postId, String content, Date creationTime, boolean isPublic, User user, Group group) {
 		super();
 		this.postId = postId;
 		this.content = content;
 		this.creationTime = creationTime;
-		this.group = group;
+		this.isPublic = isPublic;
 		this.user = user;
+		this.group = group;
 	}
 	
 	public Long getPostId() {
@@ -67,6 +72,14 @@ public class Post {
 	
 	public void setCreationTime(Date creationTime) {
 		this.creationTime = creationTime;
+	}
+	
+	public boolean getIsPublic() {
+		return isPublic;
+	}
+	
+	public void setIsPublic(boolean isPublic) {
+		this.isPublic = isPublic;
 	}
 	
 	public Group getGroup() {

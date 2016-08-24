@@ -21,7 +21,7 @@
    <property name="hibernate.connection.password">
       password
    </property>
-   
+      
    <mapping class="com.hsp.kadori.ws.domain.Chat"/>
    <mapping class="com.hsp.kadori.ws.domain.ChatMessage"/>
    <mapping class="com.hsp.kadori.ws.domain.Friendship"/>

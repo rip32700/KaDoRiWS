@@ -2,6 +2,7 @@ package com.hsp.kadori.ws.web;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -39,9 +40,9 @@ public class TestController {
 		// Create two users
 		User user1 = new User(new Long(20), "Yirica", "Michael", "Dorr", "michidorr@outlook.de", "password", "1992-03-06", "Ruckäckerweg", 6, "Regensburg", 93055, 1);
 		userRepository.save(user1);
-		User user2 = new User(new Long(20), "kaa23700", "Andreas", "Kalo Fogados", "beispiel@mail.net", "test", "1992-03-06", "Strasse", 123, "Regensburg", 93055, 1);
+		User user2 = new User(new Long(25), "kaa23700", "Andreas", "Kalo Fogados", "beispiel@mail.net", "test", "1992-03-06", "Strasse", 123, "Regensburg", 93055, 1);
 		userRepository.save(user2);
-		/*
+		
 		// Create a group
 		Group g = new Group(new Long(1), new Date(), "Gruppe zum Besprechen von Studiensachen.", "KaDoRi");
 		groupRepository.save(g);
@@ -67,11 +68,17 @@ public class TestController {
 		chatMessageRepository.save(m);
 		
 		// Create one Post per User
-		Post p = new Post(new Long(1), "Mein erster Post. Der erste Überhaupt.", new Date(), user1);
+		Post p = new Post(new Long(1), "Mein erster Post. Der erste Überhaupt.", new Date(), true, user1);
 		postRepository.save(p);
-		p = new Post(new Long(2), "Mein erster Post. Aber ein anderer User war schon vor mir da.", new Date(), user2);
+		p = new Post(new Long(2), "Mein erster Post. Aber ein anderer User war schon vor mir da.", new Date(), true, user2);
 		postRepository.save(p);
-		*/
+		
         return new ResponseEntity<>(null, HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(value="/posts", method=RequestMethod.GET)
+	public ResponseEntity<?> getPostsOfFriends() {
+		List<Post> test = postRepository.getPublicPosts();
+        return new ResponseEntity<>(null, HttpStatus.FOUND);
 	}
 }
