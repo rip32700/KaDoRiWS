@@ -42,8 +42,8 @@ public class UserController {
 	
 	@RequestMapping(value="", method=RequestMethod.POST)
 	public ResponseEntity<?> createUser(@RequestBody User user) {
-	        user = repository.save(user);
-	        return new ResponseEntity<>(null, HttpStatus.CREATED);
+        user = repository.save(user);
+        return new ResponseEntity<>(null, HttpStatus.CREATED);
 	}
 	
 }
