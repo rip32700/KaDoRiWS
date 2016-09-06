@@ -81,7 +81,12 @@ public class UserDAOImpl extends DAOImplBase implements UserDAO {
 	    Transaction tx = null;
 	    try{
 	       tx = session.beginTransaction();
-	       session.save(user);
+	       if (user.getUserId() == null) {
+	    	   session.save(user);
+	       } else {
+	    	   session.update(user);
+	       }
+	       
 	       tx.commit();
 	    }catch (HibernateException e) {
 	       if (tx!=null) tx.rollback();
@@ -92,5 +97,4 @@ public class UserDAOImpl extends DAOImplBase implements UserDAO {
 	      
 	    return user;
 	}
-
 }
