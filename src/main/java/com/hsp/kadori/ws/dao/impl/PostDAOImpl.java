@@ -52,6 +52,7 @@ public class PostDAOImpl extends DAOImplBase implements PostDAO {
 	    try{
 	       tx = session.beginTransaction();
 	       List<User> friends = friendshipRepository.getFriendsOfUser(me);
+	       friends.add(me);
 	       Query q = session.createQuery("From Post where user.userId In (:users)");
 	       q.setParameterList("users", friends.stream().map(x -> x.getUserId()).collect(Collectors.toList()));
 	       posts = q.list();
