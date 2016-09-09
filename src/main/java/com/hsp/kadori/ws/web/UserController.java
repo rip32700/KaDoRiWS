@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hsp.kadori.ws.dao.FriendshipDAO;
 import com.hsp.kadori.ws.dao.UserDAO;
 import com.hsp.kadori.ws.domain.User;
 
@@ -21,6 +22,9 @@ public class UserController {
 
 	@Inject
 	private UserDAO repository;
+	
+	@Inject 
+	private FriendshipDAO friendsRepository;
 	
 	@RequestMapping(value="/{userId}", method=RequestMethod.GET)
 	public ResponseEntity<?> getUser(@PathVariable("userId") Long userId) {
@@ -44,6 +48,13 @@ public class UserController {
 	public ResponseEntity<?> createUser(@RequestBody User user) {
         user = repository.save(user);
         return new ResponseEntity<>(null, HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(value="/{userId}/friends", method=RequestMethod.GET)
+	public ResponseEntity<?> getFriends(@PathVariable("userId") Long userId) {
+		User user = repository.findUserById(userId);
+		List<User> friendsOfUser = friendsRepository.getFriendsOfUser(user);
+		return new ResponseEntity<>(friendsOfUser, HttpStatus.OK);
 	}
 	
 }
