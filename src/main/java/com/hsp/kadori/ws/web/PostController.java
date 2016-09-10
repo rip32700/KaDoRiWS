@@ -45,4 +45,11 @@ public class PostController {
 		List<Post> postsOfFriends = repository.getPostsOfFriends(me);
 		return new ResponseEntity<>(postsOfFriends, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="/group/{groupId}", method=RequestMethod.GET)
+	public ResponseEntity<?> getPostsOfGroup(@PathVariable("groupId") Long groupId) {
+		List<Post> postsOfGroup = repository.getPostsOfGroup(groupId);
+		
+		return new ResponseEntity<>(postsOfGroup, HttpStatus.OK);
+	}
 }

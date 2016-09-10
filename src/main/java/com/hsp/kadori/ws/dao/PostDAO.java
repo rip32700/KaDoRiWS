@@ -11,4 +11,5 @@ public interface PostDAO {
 	Post save(Post post);
 	List<Post> getPostsOfFriends(User me);
 	List<Post> getPublicPosts();
+	List<Post> getPostsOfGroup(Long groupId);
 }

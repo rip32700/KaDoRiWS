@@ -5,4 +5,5 @@ import com.hsp.kadori.ws.domain.Group;
 public interface GroupDAO {
 
 	Group save(Group group);
+	Group findGroupById(Long groupId);
 }

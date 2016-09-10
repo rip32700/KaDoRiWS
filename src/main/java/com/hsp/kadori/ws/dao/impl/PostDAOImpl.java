@@ -13,6 +13,7 @@ import org.hibernate.Transaction;
 
 import com.hsp.kadori.ws.dao.FriendshipDAO;
 import com.hsp.kadori.ws.dao.PostDAO;
+import com.hsp.kadori.ws.domain.Group;
 import com.hsp.kadori.ws.domain.Post;
 import com.hsp.kadori.ws.domain.User;
 
@@ -76,6 +77,27 @@ public class PostDAOImpl extends DAOImplBase implements PostDAO {
 	    try{
 	       tx = session.beginTransaction();
 	       Query q = session.createQuery("From Post where isPublic = true");
+	       posts = q.list();
+	       tx.commit();
+	    }catch (HibernateException e) {
+	       if (tx!=null) tx.rollback();
+	       e.printStackTrace();
+	    }finally {
+	       session.close(); 
+	    }
+	    
+	    return posts;
+	}
+
+	@Override
+	public List<Post> getPostsOfGroup(Long id) {
+		Session session = factory.openSession();
+	    Transaction tx = null;
+	    List<Post> posts = new ArrayList<Post>();
+	    try{
+	       tx = session.beginTransaction();
+	       Query q = session.createQuery("From Post where group.groupId = id");
+	       q.setParameter("id", id);
 	       posts = q.list();
 	       tx.commit();
 	    }catch (HibernateException e) {
