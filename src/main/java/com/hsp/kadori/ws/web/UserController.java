@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hsp.kadori.ws.dao.FriendshipDAO;
+import com.hsp.kadori.ws.dao.GroupMemberDAO;
 import com.hsp.kadori.ws.dao.UserDAO;
+import com.hsp.kadori.ws.domain.Group;
 import com.hsp.kadori.ws.domain.User;
 
 @RestController
@@ -25,6 +27,9 @@ public class UserController {
 	
 	@Inject 
 	private FriendshipDAO friendsRepository;
+	
+	@Inject
+	private GroupMemberDAO groupMemberRepository;
 	
 	@RequestMapping(value="/{userId}", method=RequestMethod.GET)
 	public ResponseEntity<?> getUser(@PathVariable("userId") Long userId) {
@@ -51,10 +56,17 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/{userId}/friends", method=RequestMethod.GET)
-	public ResponseEntity<?> getFriends(@PathVariable("userId") Long userId) {
+	public ResponseEntity<?> getFriends(@PathVariable("userId") long userId) {
 		User user = repository.findUserById(userId);
 		List<User> friendsOfUser = friendsRepository.getFriendsOfUser(user);
 		return new ResponseEntity<>(friendsOfUser, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/{userId}/groups", method=RequestMethod.GET)
+	public ResponseEntity<?> getGroups(@PathVariable("userId") long userId) {
+		User user = repository.findUserById(userId);
+		List<Group> groupsOfUser = groupMemberRepository.getGroupsOfUser(user);
+		return new ResponseEntity<>(groupsOfUser, HttpStatus.OK);
 	}
 	
 }
