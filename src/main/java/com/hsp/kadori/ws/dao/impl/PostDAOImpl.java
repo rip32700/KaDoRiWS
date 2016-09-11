@@ -96,7 +96,8 @@ public class PostDAOImpl extends DAOImplBase implements PostDAO {
 	    List<Post> posts = new ArrayList<Post>();
 	    try{
 	       tx = session.beginTransaction();
-	       Query q = session.createQuery("From Post where group.groupId = id");
+	       Query q = session.createQuery("From Post where group_id=:id");
+	       q.setParameter("id", id);
 	       posts = q.list();
 	       tx.commit();
 	    }catch (HibernateException e) {
