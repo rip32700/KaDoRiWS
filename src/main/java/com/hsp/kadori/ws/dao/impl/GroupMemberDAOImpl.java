@@ -62,4 +62,30 @@ public class GroupMemberDAOImpl extends DAOImplBase implements GroupMemberDAO {
 	    
 		return groups;
 	}
+
+	@Override
+	public List<User> findGroupMembers(Long groupId) {
+		Session session = factory.openSession();
+	    Transaction tx = null;
+	    List<User> members = new ArrayList<User>();
+	    try{
+	       tx = session.beginTransaction();
+	       Query q = session.createQuery("From GroupMember where group_id=:id");
+	       q.setParameter("id", groupId);
+	       List<GroupMember> groupMembers = q.list();
+	       
+	       for(GroupMember gm : groupMembers) {
+	    	   members.add(gm.getUser());
+	       }
+	       
+	       tx.commit();
+	    }catch (HibernateException e) {
+	       if (tx!=null) tx.rollback();
+	       e.printStackTrace();
+	    }finally {
+	       session.close(); 
+	    }
+	    
+		return members;
+	}
 }

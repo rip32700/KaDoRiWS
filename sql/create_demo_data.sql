@@ -69,5 +69,65 @@ VALUES
 (0, 'anonymousUser', 'anonymousUser@ADManonymousUser.de', '98212345671aQeryAsd', 
  '1999-01-01', 'anonymous', 'anonymous', 99999, 
  'anonymous', 'anonymous', 8, 1);
+ 
+ 
+ -- Neue Daten für Freunde + Gruppen:
+ 
+ INSERT INTO `friendship`
+ (`FRIENDSHIP_ID`,
+ `USER1_ID`,
+ `USER2_ID`)
+ VALUES
+ (1, 1, 2);
+ 
+  INSERT INTO `friendship`
+ (`FRIENDSHIP_ID`,
+ `USER1_ID`,
+ `USER2_ID`)
+ VALUES
+ (2, 3, 2);
+ 
+ Insert into `groups`
+ (`GROUP_ID`,
+ `CREATIONDATE`,
+ `GROUPNAME`,
+ `GROUPDESCRIPTION`
+ )
+ values
+ (1, '1990-09-09 00:00:01.000000',  'Test-Group', 'This group is just for testing');
+ 
+  Insert into `groups`
+ (`GROUP_ID`,
+ `CREATIONDATE`,
+ `GROUPNAME`,
+ `GROUPDESCRIPTION`
+ )
+ values
+ (2, '1990-09-09 00:00:01.000000',  'Another-Test-Group', 'This group also is just for testing');
+ 
+ insert into `groupmember`
+ (`GROUPMEMBER_ID`,
+ `GROUP_ID`,
+ `USER_ID`
+ )
+ values
+ (1, 1, 1);
+ 
+  insert into `groupmember`
+ (`GROUPMEMBER_ID`,
+ `GROUP_ID`,
+ `USER_ID`
+ )
+ values
+ (3, 2, 2);
+
+insert into `groupmember`
+ (`GROUPMEMBER_ID`,
+ `GROUP_ID`,
+ `USER_ID`
+ )
+ values
+ (2, 1, 2);
+ 
 
 commit;

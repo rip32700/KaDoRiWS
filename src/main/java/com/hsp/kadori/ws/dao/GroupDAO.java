@@ -1,6 +1,9 @@
 package com.hsp.kadori.ws.dao;
 
+import java.util.List;
+
 import com.hsp.kadori.ws.domain.Group;
+import com.hsp.kadori.ws.domain.User;
 
 public interface GroupDAO {
 

@@ -10,4 +10,5 @@ public interface GroupMemberDAO {
 
 	GroupMember save(GroupMember groupMember);
 	List<Group> getGroupsOfUser(User user);
+	List<User> findGroupMembers(Long groupId);
 }
