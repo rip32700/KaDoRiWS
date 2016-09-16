@@ -9,4 +9,5 @@ public interface GroupDAO {
 
 	Group save(Group group);
 	Group findGroupById(Long groupId);
+	List<Group> findJoinableGroups(User me);
 }

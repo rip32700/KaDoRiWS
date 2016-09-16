@@ -10,4 +10,5 @@ public interface UserDAO {
 	User findUserByUsername(String username);
 	List<User> findAllUser();
 	User save(User user);
+	List<User> findAvailableFriends(User me);
 }
