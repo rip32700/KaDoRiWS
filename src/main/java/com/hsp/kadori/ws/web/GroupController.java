@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,12 @@ public class GroupController {
 	
 	@Inject
 	private GroupMemberDAO groupMemberRepository;
+	
+	@RequestMapping(value="", method=RequestMethod.POST)
+	public ResponseEntity<?> createPost(@RequestBody Group group) {
+		group = repository.save(group);
+	    return new ResponseEntity<>(group, HttpStatus.CREATED);
+	}
 	
 	@RequestMapping(value="/{groupId}", method=RequestMethod.GET)
 	public ResponseEntity<?> getGroup(@PathVariable("groupId") Long groupId) {
