@@ -59,7 +59,8 @@ public class GroupDAOImpl extends DAOImplBase implements GroupDAO {
 	    
 	    return null;
 	}
-	
+
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Group> findJoinableGroups(User me) {
 		Session session = factory.openSession();

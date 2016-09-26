@@ -9,6 +9,7 @@ import com.hsp.kadori.ws.domain.User;
 public interface GroupMemberDAO {
 
 	GroupMember save(GroupMember groupMember);
+	void delete(GroupMember groupMember);
 	List<Group> getGroupsOfUser(User user);
 	List<User> findGroupMembers(Long groupId);
 }

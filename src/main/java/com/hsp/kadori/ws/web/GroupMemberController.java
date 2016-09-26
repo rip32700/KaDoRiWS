@@ -23,4 +23,10 @@ public class GroupMemberController {
 		gm = repository.save(gm);
 	    return new ResponseEntity<>(gm, HttpStatus.CREATED);
 	}
+
+	@RequestMapping(value="/delete", method=RequestMethod.POST)
+	public ResponseEntity<?> leaveGroup(@RequestBody GroupMember gm) {
+		repository.delete(gm);
+	    return new ResponseEntity<>(HttpStatus.ACCEPTED);
+	}
 }

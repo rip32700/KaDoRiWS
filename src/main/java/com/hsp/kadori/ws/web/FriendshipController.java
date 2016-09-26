@@ -23,4 +23,10 @@ public class FriendshipController {
 		friendship = repository.save(friendship);
 	    return new ResponseEntity<>(null, HttpStatus.CREATED);
 	}
+	
+	@RequestMapping(value="/delete", method=RequestMethod.POST)
+	public ResponseEntity<?> deleteFriendship(@RequestBody Friendship friendship) {
+		repository.delete(friendship);
+	    return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
+	}
 }

@@ -38,6 +38,26 @@ public class GroupMemberDAOImpl extends DAOImplBase implements GroupMemberDAO {
 	}
 	
 	@Override
+	public void delete(GroupMember groupMember) {
+	    Session session = factory.openSession();
+	    Transaction tx = null;
+	    try{
+	       tx = session.beginTransaction();
+	       Query q = session.createQuery("From GroupMember where user=:user and group=:group");
+	       q.setParameter("user", groupMember.getUser());
+	       q.setParameter("group", groupMember.getGroup());
+	       session.delete(q.uniqueResult());
+	       tx.commit();
+	    }catch (HibernateException e) {
+	       if (tx!=null) tx.rollback();
+	       e.printStackTrace();
+	    }finally {
+	       session.close(); 
+	    }
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
 	public List<Group> getGroupsOfUser(User me) {
 		Session session = factory.openSession();
 	    Transaction tx = null;
@@ -63,6 +83,7 @@ public class GroupMemberDAOImpl extends DAOImplBase implements GroupMemberDAO {
 		return groups;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> findGroupMembers(Long groupId) {
 		Session session = factory.openSession();

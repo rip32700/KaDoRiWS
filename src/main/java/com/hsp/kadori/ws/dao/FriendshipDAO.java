@@ -8,5 +8,6 @@ import com.hsp.kadori.ws.domain.User;
 public interface FriendshipDAO {
 
 	Friendship save(Friendship friendship);
+	void delete(Friendship friendship);
 	List<User> getFriendsOfUser(User me);
 }

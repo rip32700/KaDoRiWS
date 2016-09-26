@@ -62,7 +62,8 @@ public class UserDAOImpl extends DAOImplBase implements UserDAO {
 	    
 	    return null;
 	}
-	
+
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> findAllUser() {
 	    Session session = factory.openSession();
@@ -81,7 +82,8 @@ public class UserDAOImpl extends DAOImplBase implements UserDAO {
 	    
 	    return null;
 	}
-	
+
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> findAvailableFriends(User me) {
 	    Session session = factory.openSession();
