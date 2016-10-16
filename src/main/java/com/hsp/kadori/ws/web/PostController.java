@@ -30,7 +30,7 @@ public class PostController {
 	@RequestMapping(value="", method=RequestMethod.POST)
 	public ResponseEntity<?> createPost(@RequestBody Post post) {
 		post = repository.save(post);
-	    return new ResponseEntity<>(null, HttpStatus.CREATED);
+	    return new ResponseEntity<>(post, HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value="/all_Public", method=RequestMethod.GET)

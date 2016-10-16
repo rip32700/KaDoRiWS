@@ -21,7 +21,7 @@ public class FriendshipController {
 	@RequestMapping(value="", method=RequestMethod.POST)
 	public ResponseEntity<?> createFriendship(@RequestBody Friendship friendship) {
 		friendship = repository.save(friendship);
-	    return new ResponseEntity<>(null, HttpStatus.CREATED);
+	    return new ResponseEntity<>(friendship, HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value="/delete", method=RequestMethod.POST)

@@ -28,7 +28,7 @@ public class GroupController {
 	private GroupMemberDAO groupMemberRepository;
 	
 	@RequestMapping(value="", method=RequestMethod.POST)
-	public ResponseEntity<?> createPost(@RequestBody Group group) {
+	public ResponseEntity<?> createGroup(@RequestBody Group group) {
 		group = repository.save(group);
 	    return new ResponseEntity<>(group, HttpStatus.CREATED);
 	}

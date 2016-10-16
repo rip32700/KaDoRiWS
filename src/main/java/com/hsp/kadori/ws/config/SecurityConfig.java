@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-			.and().authorizeRequests().antMatchers("/**").permitAll()
+			.and().authorizeRequests().antMatchers("/**").authenticated()
 			.and().httpBasic().realmName("KaDoRiWS")
 			.and().csrf().disable();
 	}
