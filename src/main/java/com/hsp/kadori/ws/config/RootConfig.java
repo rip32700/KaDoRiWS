@@ -15,16 +15,6 @@ public class RootConfig {
 	}
 	
 	@Bean
-	public ChatDAO chatDao() {
-		return new ChatDAOImpl();
-	}
-	
-	@Bean
-	public ChatMessageDAO chatMessageDao() {
-		return new ChatMessageDAOImpl();
-	}
-	
-	@Bean
 	public FriendshipDAO friendshipDao() {
 		return new FriendshipDAOImpl();
 	}
