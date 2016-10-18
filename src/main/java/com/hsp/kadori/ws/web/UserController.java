@@ -36,7 +36,7 @@ public class UserController {
 	private GroupMemberDAO groupMemberRepository;
 	
 	@RequestMapping(value="/{userId}", method=RequestMethod.GET)
-	public ResponseEntity<?> getUser(@PathVariable("userId") Long userId) {
+	public ResponseEntity<?> getUser(@PathVariable("userId") long userId) {
 		User user = repository.findUserById(userId);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
@@ -57,6 +57,13 @@ public class UserController {
 	public ResponseEntity<?> createUser(@RequestBody User user) {
         user = repository.save(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(value="/delete", method=RequestMethod.POST)
+	public ResponseEntity<?> deleteUser(@RequestBody long userId) {
+		User user = repository.findUserById(userId);
+		repository.delete(user);
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	}
 	
 	@RequestMapping(value="/{userId}/friends", method=RequestMethod.GET)

@@ -14,6 +14,7 @@ import org.hibernate.Transaction;
 import com.hsp.kadori.ws.dao.FriendshipDAO;
 import com.hsp.kadori.ws.dao.PostDAO;
 import com.hsp.kadori.ws.domain.Group;
+import com.hsp.kadori.ws.domain.GroupMember;
 import com.hsp.kadori.ws.domain.Post;
 import com.hsp.kadori.ws.domain.User;
 
@@ -89,6 +90,7 @@ public class PostDAOImpl extends DAOImplBase implements PostDAO {
 	    return posts;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Post> getPostsOfGroup(Long id) {
 		Session session = factory.openSession();
@@ -108,5 +110,47 @@ public class PostDAOImpl extends DAOImplBase implements PostDAO {
 	    }
 	    
 	    return posts;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void deleteAllPostsFromUser(User user) {
+		Session session = factory.openSession();
+	    Transaction tx = null;
+	    List<User> members = new ArrayList<User>();
+	    try{
+	       tx = session.beginTransaction();
+			Query q = session.createQuery("From Post where user =:user");
+			q.setParameter("user", user);
+			q.list().stream().forEach(post -> session.delete(post));
+	       
+	       tx.commit();
+	    }catch (HibernateException e) {
+	       if (tx!=null) tx.rollback();
+	       e.printStackTrace();
+	    }finally {
+	       session.close(); 
+	    }
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void deleteAllPostsFromGroup(Long groupId) {
+		Session session = factory.openSession();
+	    Transaction tx = null;
+	    List<User> members = new ArrayList<User>();
+	    try{
+	       tx = session.beginTransaction();
+	       Query q = session.createQuery("From Post where group_id =:id");
+			q.setParameter("id", groupId);
+			q.list().stream().forEach(post -> session.delete(post));
+			
+	       tx.commit();
+	    }catch (HibernateException e) {
+	       if (tx!=null) tx.rollback();
+	       e.printStackTrace();
+	    }finally {
+	       session.close(); 
+	    }
 	}
 }

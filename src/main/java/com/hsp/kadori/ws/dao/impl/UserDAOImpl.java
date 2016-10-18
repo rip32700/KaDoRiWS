@@ -11,6 +11,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.hsp.kadori.ws.dao.FriendshipDAO;
+import com.hsp.kadori.ws.dao.GroupMemberDAO;
+import com.hsp.kadori.ws.dao.PostDAO;
 import com.hsp.kadori.ws.dao.UserDAO;
 import com.hsp.kadori.ws.domain.User;
 
@@ -18,6 +20,12 @@ public class UserDAOImpl extends DAOImplBase implements UserDAO {
 
 	@Inject
 	private FriendshipDAO friendshipRepository;
+	
+	@Inject
+	private GroupMemberDAO groupMemberRepository;
+	
+	@Inject
+	private PostDAO postRepository;
 	
 	public UserDAOImpl() {
 		super(User.class);
@@ -132,5 +140,26 @@ public class UserDAOImpl extends DAOImplBase implements UserDAO {
 	    }
 	      
 	    return user;
+	}
+	
+	@Override
+	public void delete(User user) {
+		Session session = factory.openSession();
+	    Transaction tx = null;
+	    try{
+	       tx = session.beginTransaction();
+	       
+	       friendshipRepository.deleteAllFriendsForUser(user); 
+	       groupMemberRepository.deleteAllGroupsForUser(user);
+	       postRepository.deleteAllPostsFromUser(user);
+	       session.delete(user);
+	       
+	       tx.commit();
+	    }catch (HibernateException e) {
+	       if (tx!=null) tx.rollback();
+	       e.printStackTrace();
+	    }finally {
+	       session.close(); 
+	    }
 	}
 }

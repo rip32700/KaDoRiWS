@@ -55,6 +55,26 @@ public class FriendshipDAOImpl extends DAOImplBase implements FriendshipDAO {
 	       session.close(); 
 	    }
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public void deleteAllFriendsForUser(User user) {
+		Session session = factory.openSession();
+	    Transaction tx = null;
+	    try{
+	    	tx = session.beginTransaction();
+			Query q = session.createQuery("From Friendship where user1=:user or user2=:user");
+			q.setParameter("user", user);
+			q.list().stream().forEach(x -> session.delete(x));
+			
+			tx.commit();
+	    }catch (HibernateException e) {
+	       if (tx!=null) tx.rollback();
+	       e.printStackTrace();
+	    }finally {
+	       session.close(); 
+	    }
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
