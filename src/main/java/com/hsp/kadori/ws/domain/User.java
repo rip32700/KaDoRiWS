@@ -31,13 +31,13 @@ public class User {
 	private String street;
 	
 	@Column(name = "STREET_NR")
-	private int streetNumber;
+	private String streetNumber;
 	
 	@Column(name = "CITY")
 	private String city;
 	
 	@Column(name = "ZIP")
-	private int zip;
+	private String zip;
 	
 	@Column(name = "ROLE")
 	private int role;
@@ -47,7 +47,7 @@ public class User {
 	}
 
 	public User(Long userId, String username, String firstname, String lastname, String email, String password,
-			String birthday, String street, int streetNumber, String city, int zip, int role) {
+			String birthday, String street, String streetNumber, String city, String zip, int role) {
 		super();
 		this.userId = userId;
 		this.username = username;
@@ -127,11 +127,11 @@ public class User {
 		this.street = street;
 	}
 
-	public int getStreetNumber() {
+	public String getStreetNumber() {
 		return streetNumber;
 	}
 
-	public void setStreetNumber(int streetNumber) {
+	public void setStreetNumber(String streetNumber) {
 		this.streetNumber = streetNumber;
 	}
 
@@ -143,11 +143,11 @@ public class User {
 		this.city = city;
 	}
 
-	public int getZip() {
+	public String getZip() {
 		return zip;
 	}
 
-	public void setZip(int zip) {
+	public void setZip(String zip) {
 		this.zip = zip;
 	}
 
